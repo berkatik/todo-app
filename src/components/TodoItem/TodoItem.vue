@@ -56,6 +56,18 @@ const UNCHECK_TODO = gql`
   }
 `;
 
+const DELETE_TODO = gql`
+  mutation deleteTodo(
+    $id: Int!
+  ) {
+    delete_todos_by_pk(
+      id: $id
+    ) {
+      id
+    }
+  }
+`;
+
 @Component({
   apollo: {}
 })
@@ -78,12 +90,6 @@ export default class TodoItem extends Vue {
     return this.isDone ? 'overlay' : null;
   }
 
-  // @Inject('checkItem') checkItem!: Function;
-
-  // @Inject('uncheckItem') uncheckItem!: Function;
-
-  // @Inject('updateContent') updateContent!: Function;
-
   updateContent(id: number, description: string): void {
     this.$apollo.mutate({
       mutation: UPDATE_DESC,
@@ -95,7 +101,9 @@ export default class TodoItem extends Vue {
     });
   }
 
-  checkItem(id: number): void {
+  checkItem(): void {
+    const id: number = this.id;
+
     this.$apollo.mutate({
       mutation: CHECK_TODO,
       variables: {
@@ -105,7 +113,9 @@ export default class TodoItem extends Vue {
     })
   }
 
-  uncheckItem(id: number): void {
+  uncheckItem(): void {
+    const id: number = this.id;
+
     this.$apollo.mutate({
       mutation: UNCHECK_TODO,
       variables: {
@@ -117,7 +127,7 @@ export default class TodoItem extends Vue {
 
   itemCheckClick(): void {
     console.log(this);
-    this.isDone ? this.uncheckItem(this.id) : this.checkItem(this.id);
+    this.isDone ? this.uncheckItem() : this.checkItem();
   }
 
   makeContentEditable(): void {
@@ -128,6 +138,18 @@ export default class TodoItem extends Vue {
     this.isContentEditable = false;
     const newDescription: string = event.target.innerHTML;
     this.updateContent(this.id, newDescription);
+  }
+
+  deleteItem(): void {
+    const id: number = this.id;
+
+    this.$apollo.mutate({
+      mutation: DELETE_TODO,
+      variables: {
+        id
+      },
+      refetchQueries: ["todos"]
+    })
   }
 }
 </script>

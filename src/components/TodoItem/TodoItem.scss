@@ -1,11 +1,13 @@
 
 div base-button {
   float: right;
+  margin-right: 3rem !important;
 }
 
 div p {
   display: inline-block;
-  width: 48vw;
+  margin-left: 1rem;
+  width: 35vw;
 }
 
 li {
@@ -36,6 +38,12 @@ a {
 a:hover,
 a:active {
   color: #c89300;
+}
+
+.btn--delete {
+  background-color: rgb(192, 22, 22);
+  border-color: rgb(192, 22, 22);
+  margin: 0 1rem;
 }
 
 .overlay {
