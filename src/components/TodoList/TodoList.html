@@ -1,0 +1,9 @@
+<ul>
+  <todo-item
+    v-for="todo in tasks" 
+    :key="todo.id"
+    :id="todo.id"
+    :description="todo.description"
+    :done="todo.done"
+  ></todo-item>
+</ul>

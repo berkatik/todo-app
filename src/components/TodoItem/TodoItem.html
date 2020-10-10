@@ -1,0 +1,8 @@
+<li>
+  <base-card>
+    <div :class="overlay">
+          <p :contenteditable="isContentEditable" @click="makeContentEditable" @blur="saveContent"> {{ description }} </p>
+          <base-button :mode="taskButtonMode" @click.native="itemCheckClick(id)">{{ buttonName }}</base-button>
+      </div>
+    </base-card>
+  </li>

@@ -1,0 +1,20 @@
+<div>
+  <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="confirmError">
+    <template #default>
+      <p>Unfortunately, input value is invalid.</p>
+      <p>Please check the input to make sure.</p>
+    </template>
+    <template #actions>
+      <base-button @click.native="confirmError">Okay</base-button>
+    </template>
+  </base-dialog>
+  <base-card>
+    <form @submit.prevent="submitData">
+      <div class="form-control">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="2" ref="descInput"></textarea>
+        <base-button type="submit">Add Task</base-button>
+      </div>
+    </form>
+  </base-card>
+</div>
