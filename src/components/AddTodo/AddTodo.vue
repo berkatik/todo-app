@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
+import ADD_TODO from '../../graphql/AddTodo';
 
 @Component
 export default class AddTodo extends Vue {
@@ -12,8 +13,6 @@ export default class AddTodo extends Vue {
   $refs!: {
     descInput: HTMLInputElement,
   };
-
-  @Inject('addTask') addTask!: Function;
 
   submitData() {
     const enteredDescription = this.$refs.descInput.value;
@@ -31,5 +30,21 @@ export default class AddTodo extends Vue {
   confirmError() {
     this.inputIsInvalid = false;
   }
+
+  addTask(desc: string): void {
+  const id =  Math.floor(Math.random() * 1000000);
+  const description = desc;
+  const isDone = false;
+
+  this.$apollo.mutate({
+    mutation: ADD_TODO,
+    variables: {
+      id,
+      description,
+      isDone
+    },
+    refetchQueries: ["todos"]
+  })
+}
 }
 </script>

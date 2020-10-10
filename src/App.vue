@@ -10,30 +10,8 @@
 
 <script lang="ts">
 import { Component, Provide, Vue } from 'vue-property-decorator';
-
-import gql from 'graphql-tag';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const ADD_TODO = gql`
-  mutation addTodo(
-    $description: String!
-    $id: Int!
-    $isDone: Boolean!
-  ) {
-    insert_todos_one(
-      object: {
-        id: $id, 
-        description: $description, 
-        isDone: $isDone
-      }
-    ) {
-      description
-      isDone
-    }
-  }
-`;
-
-import Todo from './types';
 import TheHeader from './components/layout/TheHeader/TheHeader.vue';
 import AddTodo from './components/AddTodo/AddTodo.vue';
 import TodoList from './components/TodoList/TodoList.vue';
@@ -49,23 +27,22 @@ import TodoList from './components/TodoList/TodoList.vue';
 })
 export default class App extends Vue {
 
-  @Provide('addTask')
-  addTask(desc: string): void {
-    const id =  Math.floor(Math.random() * 1000000);
-    const description = desc;
-    const isDone = false;
+  // @Provide('addTask')
+  // addTask(desc: string): void {
+  //   const id =  Math.floor(Math.random() * 1000000);
+  //   const description = desc;
+  //   const isDone = false;
 
-    this.$apollo.mutate({
-      mutation: ADD_TODO,
-      variables: {
-        id,
-        description,
-        isDone
-      },
-      refetchQueries: ["todos"]
-    })
-
-  }
+  //   this.$apollo.mutate({
+  //     mutation: ADD_TODO,
+  //     variables: {
+  //       id,
+  //       description,
+  //       isDone
+  //     },
+  //     refetchQueries: ["todos"]
+  //   })
+  // }
 }
 
 </script>

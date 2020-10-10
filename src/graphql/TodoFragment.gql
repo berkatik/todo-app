@@ -1,5 +1,0 @@
-fragment todo on Todo {
-  id
-  description
-  isDone
-}

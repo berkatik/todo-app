@@ -3,76 +3,19 @@
 
 <script lang="ts">
 import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
-import gql from 'graphql-tag';
 
-const UPDATE_DESC = gql`
-  mutation updateDesc(
-    $id: Int!
-    $description: String!
-  ) {
-    update_todos_by_pk(
-      pk_columns: {
-        id: $id
-      }, 
-      _set: {
-        description: $description
-      }
-    ) {
-      id
-    }
-  }
-`;
+import CHECK_TODO from '../../graphql/CheckTodo';
+import UPDATE_DESC from '../../graphql/UpdateDesc';
+import UNCHECK_TODO from '../../graphql/UncheckTodo';
+import DELETE_TODO from '../../graphql/DeleteTodo';
 
-const CHECK_TODO = gql`
-  mutation checkTodo(
-    $id: Int!
-  ) {
-    update_todos_by_pk(
-      pk_columns: {
-        id: $id
-      }, 
-      _set: {
-        isDone: true
-    }) {
-    id
-  }
-  }
-`;
-
-
-const UNCHECK_TODO = gql`
-  mutation uncheckTodo(
-    $id: Int!
-  ) {
-    update_todos_by_pk(
-      pk_columns: {
-        id: $id
-      }, 
-      _set: {
-        isDone: false
-    }) {
-    id
-  }
-  }
-`;
-
-const DELETE_TODO = gql`
-  mutation deleteTodo(
-    $id: Int!
-  ) {
-    delete_todos_by_pk(
-      id: $id
-    ) {
-      id
-    }
-  }
-`;
 
 @Component({
   apollo: {}
 })
 export default class TodoItem extends Vue {
   isContentEditable: Boolean = false;  
+  enteredDescription: string = '';
 
   @Prop() id!: number;
   @Prop() description!: string;
@@ -136,8 +79,13 @@ export default class TodoItem extends Vue {
 
   saveContent(event: any): void {
     this.isContentEditable = false;
-    const newDescription: string = event.target.innerHTML;
-    this.updateContent(this.id, newDescription);
+
+    if (this.enteredDescription !== '') {
+      this.updateContent(this.id, this.enteredDescription);
+    } else {
+      event.target.innerHTML = this.description;
+    } 
+
   }
 
   deleteItem(): void {

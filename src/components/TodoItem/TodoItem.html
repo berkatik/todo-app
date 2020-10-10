@@ -1,8 +1,9 @@
 <li>
   <base-card>
-    <div :class="overlay">
-          <p :contenteditable="isContentEditable" @click="makeContentEditable" @blur="saveContent"> {{ description }} </p>
-          <base-button :mode="taskButtonMode" @click.native="itemCheckClick">{{ buttonName }}</base-button>
+    <div :class="overlay" >
+          <p v-if="!isContentEditable" @click="makeContentEditable" @keydown.enter.prevent> {{ description }} </p>
+          <input v-else type="input" @keyup.enter="saveContent" v-model.trim="enteredDescription" :placeholder="description">
+          <base-button :mode="taskButtonMode" @click.native="itemCheckClick" >{{ buttonName }}</base-button>
           <base-button class="btn--delete" @click.native="deleteItem">Delete</base-button>
       </div>
     </base-card>
