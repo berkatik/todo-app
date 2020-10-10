@@ -3,35 +3,121 @@
 
 <script lang="ts">
 import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
+import gql from 'graphql-tag';
 
-@Component
+const UPDATE_DESC = gql`
+  mutation updateDesc(
+    $id: Int!
+    $description: String!
+  ) {
+    update_todos_by_pk(
+      pk_columns: {
+        id: $id
+      }, 
+      _set: {
+        description: $description
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+const CHECK_TODO = gql`
+  mutation checkTodo(
+    $id: Int!
+  ) {
+    update_todos_by_pk(
+      pk_columns: {
+        id: $id
+      }, 
+      _set: {
+        isDone: true
+    }) {
+    id
+  }
+  }
+`;
+
+
+const UNCHECK_TODO = gql`
+  mutation uncheckTodo(
+    $id: Int!
+  ) {
+    update_todos_by_pk(
+      pk_columns: {
+        id: $id
+      }, 
+      _set: {
+        isDone: false
+    }) {
+    id
+  }
+  }
+`;
+
+@Component({
+  apollo: {}
+})
 export default class TodoItem extends Vue {
   isContentEditable: Boolean = false;  
 
-  @Prop() id!: string;
+  @Prop() id!: number;
   @Prop() description!: string;
-  @Prop() done!: Boolean;
+  @Prop() isDone!: Boolean;
 
   get taskButtonMode(): String | null {
-    return this.done ? null : 'flat';
+    return this.isDone ? null : 'flat';
   }
 
   get buttonName(): String {
-    return this.done ? 'Uncheck' : 'Check';
+    return this.isDone ? 'Uncheck' : 'Check';
   }
 
   get overlay(): String | null {
-    return this.done ? 'overlay' : null;
+    return this.isDone ? 'overlay' : null;
   }
 
-  @Inject('checkItem') checkItem!: Function;
+  // @Inject('checkItem') checkItem!: Function;
 
-  @Inject('uncheckItem') uncheckItem!: Function;
+  // @Inject('uncheckItem') uncheckItem!: Function;
 
-  @Inject('updateContent') updateContent!: Function;
+  // @Inject('updateContent') updateContent!: Function;
+
+  updateContent(id: number, description: string): void {
+    this.$apollo.mutate({
+      mutation: UPDATE_DESC,
+      variables: {
+        id,
+        description
+      },
+      refetchQueries: ["todos"]
+    });
+  }
+
+  checkItem(id: number): void {
+    this.$apollo.mutate({
+      mutation: CHECK_TODO,
+      variables: {
+        id
+      },
+      refetchQueries: ["todos"]
+    })
+  }
+
+  uncheckItem(id: number): void {
+    this.$apollo.mutate({
+      mutation: UNCHECK_TODO,
+      variables: {
+        id
+      },
+      refetchQueries: ["todos"]
+    })
+  }
 
   itemCheckClick(): void {
-    this.done ? this.uncheckItem(this.id) : this.checkItem(this.id);
+    console.log(this);
+    this.isDone ? this.uncheckItem(this.id) : this.checkItem(this.id);
   }
 
   makeContentEditable(): void {
