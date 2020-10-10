@@ -1,0 +1,9 @@
+#import "./TodoFragment.gql"
+
+query Todos {
+    todos {
+      id
+      isDone
+      description
+    }
+  }

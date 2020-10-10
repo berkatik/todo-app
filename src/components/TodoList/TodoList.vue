@@ -2,7 +2,7 @@
 <style lang="scss" src="./TodoList.scss" scoped></style>
 
 <script lang="ts">
-import { Component, Inject, Vue } from 'vue-property-decorator';
+import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
 import Todo from '../../types';
 
 import TodoItem from '../TodoItem/TodoItem.vue';
@@ -13,8 +13,7 @@ import TodoItem from '../TodoItem/TodoItem.vue';
   }
 })
 export default class TodoList extends Vue {
-
-  @Inject() tasks!: Array<Todo>
+  @Prop() todos!: Todo[];
 }
 
 </script>
