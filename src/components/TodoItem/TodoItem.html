@@ -10,7 +10,8 @@
   </li> -->
 
 <v-list-item class="mt-3 rounded" :class="taskCardMode">
-  <v-list-item-title> {{ description }} </v-list-item-title>
+  <v-list-item-title @click="makeContentEditable" v-if="!isContentEditable"> {{ description }} </v-list-item-title >
+  <v-text-field @keydown.enter="saveContent" :label="description" ref="descInput" v-else></v-text-field>
   <v-list-item-action>
     <v-btn elevation="1" text @click.native="itemCheckClick">
       <v-icon

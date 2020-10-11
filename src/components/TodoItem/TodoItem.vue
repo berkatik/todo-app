@@ -15,7 +15,10 @@ import DELETE_TODO from '../../graphql/DeleteTodo';
 })
 export default class TodoItem extends Vue {
   isContentEditable: Boolean = false;  
-  enteredDescription: string = '';
+
+  $refs!: {
+    descInput: any,
+  }
 
   @Prop() id!: number;
   @Prop() description!: string;
@@ -85,9 +88,11 @@ export default class TodoItem extends Vue {
 
   saveContent(event: any): void {
     this.isContentEditable = false;
+    const enteredDescription = this.$refs.descInput.internalValue;
 
-    if (this.enteredDescription !== '') {
-      this.updateContent(this.id, this.enteredDescription);
+
+    if (enteredDescription !== undefined && enteredDescription.trim() !== '') {
+      this.updateContent(this.id, enteredDescription);
     } else {
       event.target.innerHTML = this.description;
     } 
