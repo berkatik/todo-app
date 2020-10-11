@@ -1,4 +1,4 @@
-<li>
+<!-- <li>
   <base-card>
     <div :class="overlay" >
           <p v-if="!isContentEditable" @click="makeContentEditable" @keydown.enter.prevent> {{ description }} </p>
@@ -7,4 +7,24 @@
           <base-button class="btn--delete" @click.native="deleteItem">Delete</base-button>
       </div>
     </base-card>
-  </li>
+  </li> -->
+
+<v-list-item class="mt-3 rounded" :class="taskCardMode">
+  <v-list-item-title> {{ description }} </v-list-item-title>
+  <v-list-item-action>
+    <v-btn elevation="1" text @click.native="itemCheckClick">
+      <v-icon
+        :color="taskButtonMode"
+      >
+       {{ buttonIcon }}
+      </v-icon>
+    </v-btn>
+    <v-btn elevation="1" text @click.native="deleteItem">
+      <v-icon
+        color="red"
+      >
+        mdi-delete
+      </v-icon>
+    </v-btn>
+  </v-list-item-action>
+</v-list-item>

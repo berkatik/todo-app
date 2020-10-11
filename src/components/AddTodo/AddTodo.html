@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="confirmError">
     <template #default>
       <p>Unfortunately, input value is invalid.</p>
@@ -17,4 +17,20 @@
       </div>
     </form>
   </base-card>
-</div>
+</div> -->
+
+<v-card class="px-6">
+  <v-card-title>
+    Add New Task
+  </v-card-title>
+  <v-card-actions>
+    <v-text-field @keydown.enter="submitData" label="This needs to be done by deadline..." ref="descInput" >
+      <v-icon
+        slot="append"
+        color="green"
+      >
+      mdi-plus
+      </v-icon>
+    </v-text-field>
+  </v-card-actions>
+</v-card>

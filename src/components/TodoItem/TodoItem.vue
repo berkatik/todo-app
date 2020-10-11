@@ -21,12 +21,16 @@ export default class TodoItem extends Vue {
   @Prop() description!: string;
   @Prop() isDone!: Boolean;
 
-  get taskButtonMode(): String | null {
-    return this.isDone ? null : 'flat';
+  get taskButtonMode(): String {
+    return this.isDone ? 'orange' : 'green';
   }
 
-  get buttonName(): String {
-    return this.isDone ? 'Uncheck' : 'Check';
+  get taskCardMode(): String | null {
+    return this.isDone ? 'green lighten-3' : 'grey lighten-5';
+  }
+
+  get buttonIcon(): String {
+    return this.isDone ? 'mdi-alpha-x' : 'mdi-check';
   }
 
   get overlay(): String | null {

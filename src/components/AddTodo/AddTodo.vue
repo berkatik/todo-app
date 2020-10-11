@@ -5,7 +5,6 @@
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import ADD_TODO from '../../graphql/AddTodo';
-import vuetify from './plugins/vuetify';
 
 
 @Component
@@ -13,11 +12,11 @@ export default class AddTodo extends Vue {
   inputIsInvalid: Boolean = false;
 
   $refs!: {
-    descInput: HTMLInputElement,
+    descInput: any,
   };
 
   submitData() {
-    const enteredDescription = this.$refs.descInput.value;
+    const enteredDescription = this.$refs.descInput.internalValue;
 
     if (enteredDescription.trim() === '') {
       this.inputIsInvalid = true;
@@ -25,7 +24,7 @@ export default class AddTodo extends Vue {
     }
 
     this.addTask(enteredDescription);
-    this.$refs.descInput.value = '';
+    this.$refs.descInput.internalValue = '';
 
   }
 

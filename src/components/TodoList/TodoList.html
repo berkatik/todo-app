@@ -1,4 +1,4 @@
-<ul>
+<!-- <ul>
   <todo-item
     v-for="todo in todos" 
     :key="todo.id"
@@ -6,4 +6,19 @@
     :description="todo.description"
     :isDone="todo.isDone"
   ></todo-item>
-</ul>
+</ul> -->
+
+<v-card class="px-6 pb-10">
+    <v-card-title>Tasks</v-card-title>
+    <v-list subheader text>
+        <!-- TodoItem -->
+        <todo-item
+          v-for="todo in todos" 
+          :key="todo.id"
+          :id="todo.id"
+          :description="todo.description"
+          :isDone="todo.isDone"
+        ></todo-item>
+        <!-- TodoItem End -->
+    </v-list>
+  </v-card>
