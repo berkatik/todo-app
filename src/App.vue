@@ -37,11 +37,22 @@
 <script lang="ts">
 import { Component, Provide, Vue } from 'vue-property-decorator';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { onError } from 'apollo-link-error'
 
 import TheHeader from './components/layout/TheHeader/TheHeader.vue';
 import AddTodo from './components/AddTodo/AddTodo.vue';
 import TodoList from './components/TodoList/TodoList.vue';
 
+const link = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    )
+
+  if (networkError) console.log(`[Network error]: ${networkError}`)
+})
 
 @Component({
   components: {

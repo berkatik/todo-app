@@ -44,7 +44,8 @@ export default class TodoItem extends Vue {
         id,
         description
       },
-      refetchQueries: ["todos"]
+      refetchQueries: ["todos"],
+      errorPolicy: 'all',
     });
   }
 
@@ -56,7 +57,8 @@ export default class TodoItem extends Vue {
       variables: {
         id
       },
-      refetchQueries: ["todos"]
+      refetchQueries: ["todos"],
+      errorPolicy: 'all',
     })
   }
 
@@ -68,12 +70,12 @@ export default class TodoItem extends Vue {
       variables: {
         id
       },
-      refetchQueries: ["todos"]
+      refetchQueries: ["todos"],
+      errorPolicy: 'all',
     })
   }
 
   itemCheckClick(): void {
-    console.log(this);
     this.isDone ? this.uncheckItem() : this.checkItem();
   }
 
@@ -100,7 +102,8 @@ export default class TodoItem extends Vue {
       variables: {
         id
       },
-      refetchQueries: ["todos"]
+      refetchQueries: ["todos"],
+      errorPolicy: 'all',
     })
   }
 }

@@ -14,7 +14,8 @@ import TodoItem from '../TodoItem/TodoItem.vue';
   },
   apollo: {
     todos: {
-      query: TODOS
+      query: TODOS,
+      errorPolicy: 'all'
     }
   }
 })

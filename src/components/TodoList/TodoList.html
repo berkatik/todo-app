@@ -8,17 +8,22 @@
   ></todo-item>
 </ul> -->
 
-<v-card class="px-6 pb-10">
-    <v-card-title>Tasks</v-card-title>
-    <v-list subheader text>
-        <!-- TodoItem -->
-        <todo-item
-          v-for="todo in todos" 
-          :key="todo.id"
-          :id="todo.id"
-          :description="todo.description"
-          :isDone="todo.isDone"
-        ></todo-item>
-        <!-- TodoItem End -->
-    </v-list>
-  </v-card>
+<v-card v-if="$apollo.loading"  loading>
+      <v-card-title>Tasks are loading...</v-card-title>
+</v-card>
+
+<v-card class="px-6 pb-10"  v-else>
+  <v-card-title>Tasks</v-card-title>
+  <v-card-subtitle v-if="todos.length === 0">No tasks are available, you can add new tasks from "Add New Tasks" section.</v-card-subtitle>
+  <v-list subheader text v-else>
+      <!-- TodoItem -->
+      <todo-item
+        v-for="todo in todos" 
+        :key="todo.id"
+        :id="todo.id"
+        :description="todo.description"
+        :isDone="todo.isDone"
+      ></todo-item>
+      <!-- TodoItem End -->
+  </v-list>
+</v-card>

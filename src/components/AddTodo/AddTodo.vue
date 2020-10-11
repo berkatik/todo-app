@@ -18,14 +18,13 @@ export default class AddTodo extends Vue {
   submitData() {
     const enteredDescription = this.$refs.descInput.internalValue;
 
-    if (enteredDescription.trim() === '') {
+    if (enteredDescription !== undefined && enteredDescription.trim() !== '') {
+      this.inputIsInvalid = false;
+      this.addTask(enteredDescription);
+      this.$refs.descInput.internalValue = '';
+    } else {
       this.inputIsInvalid = true;
-      return;
     }
-
-    this.addTask(enteredDescription);
-    this.$refs.descInput.internalValue = '';
-
   }
 
   confirmError() {
@@ -33,19 +32,20 @@ export default class AddTodo extends Vue {
   }
 
   addTask(desc: string): void {
-  const id =  Math.floor(Math.random() * 1000000);
-  const description = desc;
-  const isDone = false;
+    const id =  Math.floor(Math.random() * 1000000);
+    const description = desc;
+    const isDone = false;
 
-  this.$apollo.mutate({
-    mutation: ADD_TODO,
-    variables: {
-      id,
-      description,
-      isDone
-    },
-    refetchQueries: ["todos"]
+    this.$apollo.mutate({
+      mutation: ADD_TODO,
+      variables: {
+        id,
+        description,
+        isDone
+      },
+      refetchQueries: ["todos"],
+      errorPolicy: 'all',
   })
-}
+  }
 }
 </script>

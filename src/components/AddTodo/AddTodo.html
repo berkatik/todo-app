@@ -24,7 +24,7 @@
     Add New Task
   </v-card-title>
   <v-card-actions>
-    <v-text-field @keydown.enter="submitData" label="This needs to be done by deadline..." ref="descInput" >
+    <v-text-field @keydown.enter="submitData" label="This needs to be done by deadline..." ref="descInput" :rules="[!inputIsInvalid || 'Enter some text!']">
       <v-icon
         slot="append"
         color="green"
