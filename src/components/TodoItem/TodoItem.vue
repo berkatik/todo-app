@@ -86,7 +86,7 @@ export default class TodoItem extends Vue {
     this.isContentEditable = true;
   }
 
-  saveContent(event: any): void {
+  saveContent(): void {
     this.isContentEditable = false;
     const enteredDescription = this.$refs.descInput.internalValue;
 
@@ -94,7 +94,7 @@ export default class TodoItem extends Vue {
     if (enteredDescription !== undefined && enteredDescription.trim() !== '') {
       this.updateContent(this.id, enteredDescription);
     } else {
-      event.target.innerHTML = this.description;
+      this.$refs.descInput.internalValue = this.description;
     } 
 
   }
