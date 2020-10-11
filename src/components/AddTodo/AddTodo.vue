@@ -5,6 +5,8 @@
 <script lang="ts">
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import ADD_TODO from '../../graphql/AddTodo';
+import vuetify from './plugins/vuetify';
+
 
 @Component
 export default class AddTodo extends Vue {

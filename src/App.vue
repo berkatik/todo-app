@@ -1,12 +1,82 @@
 <template>
-  <div>
+  <!-- <div>
     <the-header title="Todo App"></the-header>
     <base-card>
       <add-todo></add-todo>
       <todo-list></todo-list>
     </base-card>
-  </div>
+  </div> -->
+
+  <v-app>
+    <v-main class="teal lighten-3">
+      <v-container>
+        <v-row>
+          <v-col cols="6">
+            <v-card class="px-6">
+        <!-- AddTodo -->
+              <v-card-title>
+                Add New Task
+              </v-card-title>
+              <v-card-actions>
+                <v-text-field label="This needs to be done by deadline..." >
+                  <v-icon
+                    slot="append"
+                    color="green"
+                  >
+                  mdi-plus
+                  </v-icon>
+                </v-text-field>
+              </v-card-actions>
+        <!-- Add Todo End -->
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <!-- TodoList -->
+        <v-row>
+          <v-col cols="6">
+            <v-card class="px-6 pb-10">
+              <v-card-title>Tasks</v-card-title>
+              <v-list subheader text>
+                  <!-- TodoItem -->
+                  <v-list-item class="mt-3 grey lighten-5 rounded">
+                    <v-list-item-title>Test Task preview!</v-list-item-title>
+                    <v-list-item-action>
+                      <v-btn elevation="1" text>
+                        <v-icon
+                          color="green"
+                        >
+                          mdi-check
+                        </v-icon>
+                      </v-btn>
+                      <v-btn elevation="1" text>
+                        <v-icon
+                          color="red"
+                        >
+                          mdi-delete
+                        </v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </v-list-item>
+                  <!-- TodoItem End -->
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
+        <!-- TodoList End -->
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
+
+
+
+
+
+
+
+
+
 
 <script lang="ts">
 import { Component, Provide, Vue } from 'vue-property-decorator';
@@ -58,8 +128,8 @@ export default class App extends Vue {
     font-family: 'Roboto', sans-serif;
   }
 
-  body {
-    margin: 0;
+  div {
+    margin: auto;
   }
 
 </style>
